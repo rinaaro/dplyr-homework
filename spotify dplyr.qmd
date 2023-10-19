@@ -7,3 +7,35 @@ format:
   pdf: 
     echo: false
 ---
+
+
+```{r}
+#| message: false
+here::i_am("dplyr homework.Rproj")
+library(here)
+library(ggplot2)
+theme_set(theme_bw())
+library(dplyr)
+library(tidyr)
+```
+
+
+## Exercise 1
+
+```{r}
+spotify <- readRDS(here("top-spotify-songs-from-20102019-by-year.Rds"))
+```
+
+
+
+### Q1
+
+```{r}
+n_song <- spotify %>% distinct(title)
+n_artist <- spotify %>% distinct(artist)
+n_genre <- spotify %>% distinct(`top genre`)
+```
+
+The data set contains `r nrow(n_song)` songs, `r nrow(n_artist)` artists, and `r nrow(n_genre)` musical genres.
+ 
+
