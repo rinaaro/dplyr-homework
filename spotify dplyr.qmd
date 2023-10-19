@@ -43,6 +43,25 @@ The data set contains `r nrow(n_song)` songs, `r nrow(n_artist)` artists, and `r
 ### Q2
 
 
-```{r}
+```{r n_songs_per_year}
 knitr::kable(spotify %>% count(year), col.names = c("Year", "Number of songs per year"))
 ```
+
+
+### Q3
+
+```{r pop_artist}
+n_song_all <- spotify %>% distinct(title, .keep_all = TRUE)
+sp_stats <- n_song_all |>
+  group_by(artist) |>
+  summarise(N=n()) |>
+  slice_max(order_by = N)
+```
+
+
+The most popular artist is `r sp_stats[1]`, with `r sp_stats[2]` individual songs on the spotify top song charts.
+
+
+
+
+
