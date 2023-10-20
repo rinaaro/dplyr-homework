@@ -65,11 +65,21 @@ The most popular artist is `r sp_stats[1]`, with `r sp_stats[2]` individual song
 
 ### Q4
 
-```{r}
+```{r bpm_stats}
 knitr::kable(n_song_all |>
   group_by(`top genre`) |>
   summarise(min(bpm), max(bpm), mean(bpm), median(bpm), "n of songs"=n()))
 ```
 
+
+
+### Q5
+
+```{r}
+nrg_dnc_stats <- spotify |>
+  group_by(year) |>
+  summarise(median(nrgy), median(dnce))
+knitr::kable(nrg_dnc_stats) #necessary or not?
+```
 
 
