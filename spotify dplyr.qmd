@@ -9,7 +9,7 @@ format:
 ---
 
 
-```{r}
+```{r config}
 #| message: false
 here::i_am("dplyr homework.Rproj")
 library(here)
@@ -104,7 +104,7 @@ median annual danceability.", y = "%")
 
 ## Exercise 2
 
-```{r}
+```{r load_dropout}
 dropout <- readRDS(here("dropout.rds"))
 ```
 
@@ -112,7 +112,7 @@ dropout <- readRDS(here("dropout.rds"))
 
 ### Q1
 
-```{r}
+```{r med_age}
 med_age <- 
   dropout %>%
   group_by(Gender, `Marital status`) %>%
@@ -123,7 +123,22 @@ med_age <-
 
 ### Q2
   
-```{r}
+```{r med_age_table}
 knitr::kable(med_age|>
   pivot_wider(names_from = Gender, values_from = `median(\`Age at enrollment\`)`), caption = "Median age at enrollment")
 ```
+
+
+
+### Q3
+
+```{r mean_curr}
+curr_mean <- 
+  dropout |>
+  group_by(Target) |>
+  select(starts_with("Curricular")) |>
+  summarise(across(where(is.numeric), mean)) 
+```
+
+
+
