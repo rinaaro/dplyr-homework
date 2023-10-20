@@ -40,12 +40,13 @@ n_genre <- spotify %>% distinct(`top genre`)
 The data set contains `r nrow(n_song)` songs, `r nrow(n_artist)` artists, and `r nrow(n_genre)` musical genres.
 
 
-### Q2
 
+### Q2
 
 ```{r n_songs_per_year}
 knitr::kable(spotify %>% count(year), col.names = c("Year", "Number of songs per year"))
 ```
+
 
 
 ### Q3
@@ -58,10 +59,17 @@ sp_stats <- n_song_all |>
   slice_max(order_by = N)
 ```
 
-
 The most popular artist is `r sp_stats[1]`, with `r sp_stats[2]` individual songs on the spotify top song charts.
 
 
+
+### Q4
+
+```{r}
+knitr::kable(n_song_all |>
+  group_by(`top genre`) |>
+  summarise(min(bpm), max(bpm), mean(bpm), median(bpm), "n of songs"=n()))
+```
 
 
 
