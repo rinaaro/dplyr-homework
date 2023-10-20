@@ -18,6 +18,7 @@ theme_set(theme_bw())
 library(dplyr)
 library(tidyr)
 library(knitr)
+options(dplyr.summarise.inform = FALSE)
 ```
 
 
@@ -101,7 +102,22 @@ median annual danceability.", y = "%")
 
 
 
+## Exercise 2
+
+```{r}
+dropout <- readRDS(here("dropout.rds"))
+```
 
 
 
+### Q1
+
+```{r}
+med_age <- 
+  dropout %>%
+  group_by(Gender, `Marital status`) %>%
+  summarise(median(`Age at enrollment`))
+```
+
+  
   
