@@ -120,4 +120,10 @@ med_age <-
 ```
 
   
+
+### Q2
   
+```{r}
+knitr::kable(med_age|>
+  pivot_wider(names_from = Gender, values_from = `median(\`Age at enrollment\`)`), caption = "Median age at enrollment")
+```
