@@ -75,7 +75,7 @@ knitr::kable(n_song_all |>
 
 ### Q5
 
-```{r}
+```{r nrg_stats}
 nrg_dnc_stats <- spotify |>
   group_by(year) |>
   summarise(median(nrgy), median(dnce))
@@ -83,3 +83,25 @@ knitr::kable(nrg_dnc_stats) #necessary or not?
 ```
 
 
+
+### Q6
+
+```{r longer_nrgy_stats}
+longstats <- 
+  nrg_dnc_stats |>
+  pivot_longer(-year, names_to = "Statistic")
+```
+
+```{r longstats_nrg}
+ggplot(longstats, aes(x=year, y=value, group=Statistic, color=Statistic))+
+  geom_line() +
+  labs(title = "Temporal evolution of the median annual energy and the
+median annual danceability.", y = "%")
+```
+
+
+
+
+
+
+  
