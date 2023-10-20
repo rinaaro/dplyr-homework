@@ -142,3 +142,10 @@ curr_mean <-
 
 
 
+### Q4
+
+```{r curr_mean_table}
+knitr::kable(curr_mean|>
+  pivot_longer(-Target) |>
+  pivot_wider(names_from = Target))
+```
