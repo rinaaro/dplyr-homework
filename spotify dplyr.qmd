@@ -94,7 +94,8 @@ longstats <-
 ggplot(longstats, aes(x=year, y=value, group=Statistic, color=Statistic))+
   geom_line() +
   labs(title = "Temporal evolution of the median annual energy and the
-median annual danceability.")
+median annual danceability.", x = "Year", y = " Median") +
+  scale_x_continuous(breaks=seq(2010,2019,2))
 ```
 
 
