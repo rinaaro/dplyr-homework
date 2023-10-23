@@ -1,5 +1,5 @@
 ---
-title: "spotify dplyr"
+title: "Spotify & dropout dplyr"
 author: "Arina Agaronyan"
 format: 
   html: 
