@@ -17,6 +17,7 @@ library(dplyr)
 library(tidyr)
 library(knitr)
 options(dplyr.summarise.inform = FALSE)
+library(kableExtra)
 ```
 
 
@@ -43,7 +44,7 @@ The data set contains `r nrow(n_song)` songs, `r nrow(n_artist)` artists, and `r
 ### Q2
 
 ```{r n_songs_per_year}
-knitr::kable(spotify %>% count(year), col.names = c("Year", "Number of songs per year"))
+kable(spotify %>% count(year), col.names = c("Year", "Number of songs"), caption = "Number of songs on the spotify top song charts per year", align = "cr")
 ```
 
 
@@ -65,9 +66,10 @@ The most popular artist is `r sp_stats[1]`, with `r sp_stats[2]` individual song
 ### Q4
 
 ```{r bpm_stats}
-knitr::kable(n_song_all |>
+kable(n_song_all |>
   group_by(`top genre`) |>
-  summarise(min(bpm), max(bpm), mean(bpm), median(bpm), "n of songs"=n()))
+  summarise(min(bpm), max(bpm), mean(bpm), median(bpm), "Number of songs"=n()), caption = "Minimum, maximum, mean and median bpm for each musical genre", align = "lccccc", col.names = c("Musical genre", "Minimum", "Maximum", "Mean", "Median", "Number of songs"), digits = 0) %>%
+  add_header_above(c(" " = 1, "bpm" = 4, " " = 1))
 ```
 
 
@@ -77,8 +79,9 @@ knitr::kable(n_song_all |>
 ```{r nrg_stats}
 nrg_dnc_stats <- spotify |>
   group_by(year) |>
-  summarise(median(nrgy), median(dnce))
+  summarise("Energy"=median(nrgy), "Danceability"=median(dnce))
 ```
+A data frame including the median energy and the median danceability per year.
 
 
 
@@ -116,14 +119,16 @@ med_age <-
   group_by(Gender, `Marital status`) |>
   summarise(median(`Age at enrollment`))
 ```
-
+A data frame including the median Age at enrollment, conditioned both on the Gender and on the Marital status.
   
+
 
 ### Q2
   
 ```{r med_age_table}
-knitr::kable(med_age|>
-  pivot_wider(names_from = Gender, values_from = `median(\`Age at enrollment\`)`), caption = "Median age at enrollment by marital status and gender")
+kable(med_age|>
+  pivot_wider(names_from = Gender, values_from = `median(\`Age at enrollment\`)`), caption = "Median age at enrollment by marital status and gender", align = "lcc", digits = 0) %>%
+  add_header_above(c(" " = 1, "Gender" = 2))
 ```
 
 
@@ -136,13 +141,14 @@ curr_mean <-
   group_by(Target) |>
   summarise(across(starts_with("Curricular"), mean))
 ```
+A data frame including the conditional mean of all variables related to Curricular units, given the value of the Target variable.
 
 
 
 ### Q4
 
 ```{r curr_mean_table}
-knitr::kable(curr_mean|>
+kable(curr_mean|>
   pivot_longer(-Target, names_to = "Units") |>
-  pivot_wider(names_from = Target),  caption = "Mean curricular units per target", digits = 2)
+  pivot_wider(names_from = Target),  caption = "Mean curricular units per target", digits = 2, align = "lccc")
 ```
