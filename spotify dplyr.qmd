@@ -143,5 +143,5 @@ curr_mean <-
 ```{r curr_mean_table}
 knitr::kable(curr_mean|>
   pivot_longer(-Target, names_to = "Units") |>
-  pivot_wider(names_from = Target),  caption = "Mean curricular units per target")
+  pivot_wider(names_from = Target),  caption = "Mean curricular units per target", digits = 2)
 ```
